@@ -40,14 +40,12 @@ INSTALLED_APPS = [
     # 'django.contrib.users',
     # MY APPS
     'users',
-    'profiles',
-    'posts',
     # Third-party apps
     'rest_framework',
     'rest_framework.authtoken',
 ]
 
-AUTH_USER_MODEL = 'users.user'
+AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
