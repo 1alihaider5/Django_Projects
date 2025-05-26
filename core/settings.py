@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # 'django.contrib.users',
     # MY APPS
     'users',
+    'userProfile',
     # Third-party apps
     'rest_framework',
     'rest_framework.authtoken',
@@ -59,8 +60,7 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-
-
+# Media setup
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
