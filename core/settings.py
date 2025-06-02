@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     # MY APPS
     'users',
     'userProfile',
+    'posts',
+    'django_filters',
     # Third-party apps
     'rest_framework',
     'rest_framework.authtoken',
@@ -52,6 +54,13 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+       'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ),
 }
 
@@ -64,13 +73,26 @@ SIMPLE_JWT = {
 
 
 # Media settings
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# # Create media directory if it doesn't exist
+# if not os.path.exists(MEDIA_ROOT):
+#     os.makedirs(MEDIA_ROOT)
+#     os.makedirs(os.path.join(MEDIA_ROOT, 'profile_pics'))
+
+
+# Add to your existing settings
+BASE_URL = 'http://localhost:8000'  # Change to your actual domain
+
+# Ensure these media settings are present
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Create media directory if it doesn't exist
-if not os.path.exists(MEDIA_ROOT):
-    os.makedirs(MEDIA_ROOT)
-    os.makedirs(os.path.join(MEDIA_ROOT, 'profile_pics'))
+# Create directories if they don't exist
+os.makedirs(MEDIA_ROOT, exist_ok=True)
+os.makedirs(os.path.join(MEDIA_ROOT, 'post_images'), exist_ok=True)
+
 
 
 MIDDLEWARE = [
