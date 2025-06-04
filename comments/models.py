@@ -1,10 +1,11 @@
 from django.db import models
-from django.conf import settings
+# from django.conf import settings
 from django.utils import timezone
 from posts.models import Post
+from users.models import User
 
-class Commnent(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)

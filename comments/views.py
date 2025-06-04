@@ -1,9 +1,17 @@
 from rest_framework import generics , permissions
-from .models import Commnent
+from .models import Comment
 from .serializers import CommentSerializer
 
 class CommentCreateView (generics.ListCreateAPIView):
-    queryset = Commnent.objects.all()
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [permissions.AllowAny]    
+    permission_classes = [permissions.IsAuthenticated]    
     
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        
+        
+class CommentDetailView (generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated]

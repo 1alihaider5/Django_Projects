@@ -3,7 +3,7 @@ from .models import Post
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'user', 'created_at', 'image_preview']
+    list_display = ['id', 'title', 'user', 'created_at', 'image_preview']
     list_filter = ['user', 'created_at']
     search_fields = ['title', 'content', 'user__email']
     readonly_fields = ['image_preview']
