@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'users',
     'userProfile',
     'posts',
+    'comments',
     'django_filters',
     # Third-party apps
     'rest_framework',
