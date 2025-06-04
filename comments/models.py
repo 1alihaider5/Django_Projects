@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-from posts.models import Post
+from .models import Post
 
 class Commnent(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -10,4 +10,5 @@ class Commnent(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     
     def __str__(self):
-        return  f"{self.content} by {self.user.email} on {self.post.title}  "
+        return  f"{self.content} by {self.user.email} on {self.post.title}"
+    
