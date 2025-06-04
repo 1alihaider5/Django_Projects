@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import generics , permissions
+from .models import Commnent
+from .serializers import CommentSerializer
 
-# Create your views here.
+class CommentCreateView (generics.ListCreateAPIView):
+    queryset = Commnent.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.AllowAny]    
+    
