@@ -17,11 +17,6 @@ class Like(models.Model):
     post = models.ForeignKey(Post , on_delete=models.CASCADE)
     liked = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
-    
-    class Meta:
-        # Ensures each user can only like a post once
-        unique_together  = ('user', 'post') 
-        
-        
+       
     def __str__(self):
         return f"Liked {self.liked} by {self.user.username} on post {self.post.title}"     

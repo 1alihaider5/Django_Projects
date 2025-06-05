@@ -9,11 +9,11 @@ class CommentSerializer (serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
        model = Comment
-       fields = ['id','user','user_id', 'content', 'post', 'created_at']  
+       fields = ['user','user_id', 'content', 'post_id', 'created_at']  
        
        
 class LikeSerializer (serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Like
-        fields = ['id', 'user','user_id', 'post', 'liked','created_at' ] 
+        fields = ['user','user_id', 'post_id', 'liked','created_at' ] 

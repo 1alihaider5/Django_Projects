@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/profile/', include('userProfile.urls')), # Profile management
     path('api/posts/', include('posts.urls')),
-    path('api/comments/',include('comments.urls')),
+    path('',include('comments.urls')),
          
 ]
 if settings.DEBUG:
