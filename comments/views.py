@@ -7,8 +7,8 @@ class CommentCreateView (generics.ListCreateAPIView):
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]    
     
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
         
         
 class CommentDetailView (generics.RetrieveUpdateDestroyAPIView):
