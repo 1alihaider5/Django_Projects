@@ -5,7 +5,7 @@ from users.models import User
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     
@@ -14,7 +14,7 @@ class Comment(models.Model):
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post , on_delete=models.CASCADE)
+    post = models.ForeignKey(Post , on_delete=models.CASCADE, related_name='likes')
     liked = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
        

@@ -1,15 +1,28 @@
 
 
 from rest_framework import serializers
-from .models import Post
+from .models import Post , AutomationForm
+from comments.serializers import CommentSerializer, LikeSerializer
+from users.serializers import UserSerializer
 
 class PostSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
-    
+    comments = CommentSerializer(many=True, read_only=True)
+    likes =serializers.SerializerMethodField()
+
     class Meta:
         model = Post
-        fields = ['id', 'user', 'title', 'content', 'image', 'image_url', 'created_at', 'updated_at']
+        fields = [
+            'id', 'user', 'title', 'content', 'image', 'image_url',
+            'created_at', 'updated_at',
+            'likes',      'comments',    ]
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']
+        
+    def get_comments(self, obj):
+        return CommentSerializer(obj.comments.all(), many=True).data
+
+    def get_likes(self, obj):
+        return LikeSerializer(obj.likes.filter(liked=True), many=True).data
 
     def get_image_url(self, obj):
         """Use the model's safe image_url property"""
@@ -32,3 +45,13 @@ class PostCreateSerializer(serializers.ModelSerializer):
                 'image': data.get('image')
             }
         return super().to_internal_value(data)
+    
+    
+# === AutomationProcess serializer ===    
+    
+class AutomationFormSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user_details = UserSerializer(source='user', read_only=True )
+    class Meta:
+        model = AutomationForm
+        fields = ['user', 'user_details', 'id', 'title', 'description', 'frequency', 'friction', 'density']    

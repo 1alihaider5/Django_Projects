@@ -1,8 +1,8 @@
 
 from rest_framework import generics, permissions
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import Post
-from .serializers import PostSerializer, PostCreateSerializer
+from .models import Post , AutomationForm
+from .serializers import PostSerializer, PostCreateSerializer , AutomationFormSerializer
 
 class PostListView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
@@ -50,3 +50,16 @@ class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
         except Exception as e:
             print(f"Error updating post: {str(e)}")
             raise
+        
+ # === AutomationProcess Views ===
+ 
+class AutomationFormView (generics.ListCreateAPIView):
+    queryset = AutomationForm.objects.all()
+    serializer_class = AutomationFormSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+             
+class AutomationFormDetailView  (generics.RetrieveUpdateDestroyAPIView):
+    queryset = AutomationForm.objects.all()
+    serializer_class = AutomationFormSerializer
+    permission_classes = [permissions.IsAuthenticated]      
