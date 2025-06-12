@@ -18,11 +18,9 @@ class PostSerializer(serializers.ModelSerializer):
             'likes',      'comments',    ]
         read_only_fields = ['id', 'user', 'created_at', 'updated_at']
         
-    def get_comments(self, obj):
-        return CommentSerializer(obj.comments.all(), many=True).data
-
     def get_likes(self, obj):
-        return LikeSerializer(obj.likes.filter(liked=True), many=True).data
+        return LikeSerializer(obj.likes.filter(liked=True), many=True).data 
+        
 
     def get_image_url(self, obj):
         """Use the model's safe image_url property"""
