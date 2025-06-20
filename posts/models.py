@@ -58,13 +58,12 @@ class AutomationForm(models.Model):
         return f"{self.title} (by {self.user.email})"
 
 
-# === Holidays Model ===
-
-
+# === Add Holiday Model ==============
 class Holidays(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+
     date = models.DateField()
     country = models.CharField(max_length=10)
 
