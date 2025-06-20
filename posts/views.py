@@ -99,23 +99,6 @@ class HolidayView(APIView):
 User = get_user_model()
 
 
-# class UserHolidayView(APIView):
-#     def get(self, request, user_id):
-#         try:
-#             user = User.objects.get(id=user_id)
-#         except User.DoesNotExist:
-#             return Response(
-#                 {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
-#             )
-
-#         # Use user's country to fetch holidays
-#         country = user.country or "PK"
-#         year = request.GET.get("year", "2025")
-
-#         holidays = get_holidays(country=country, year=year)
-#         return Response(holidays)
-
-
 class UserHolidayView(APIView):
     def get(self, request, user_id):
         # Step 1: Get user or return 404

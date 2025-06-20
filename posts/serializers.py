@@ -72,11 +72,10 @@ class AutomationFormSerializer(serializers.ModelSerializer):
         ]
 
 
-# ===================== Holiays Serializers =================
-
-
+# ===============Holiays Serializers =================
 class HolidaysSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+
     country_name = serializers.SerializerMethodField()
 
     class Meta:
