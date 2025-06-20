@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\ByteWhiz\Django Projects\UMS\venv"
+VIRTUAL_ENV="D:\ByteWhiz\Django Projects\PRACTICE PROJECT\UMS\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
