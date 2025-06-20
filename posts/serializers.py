@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Post, AutomationForm
+from .models import Post, AutomationForm, Holidays
 from comments.serializers import CommentSerializer, LikeSerializer
 from users.serializers import UserSerializer
+from pycountry import pycountry
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -69,3 +70,26 @@ class AutomationFormSerializer(serializers.ModelSerializer):
             "friction",
             "density",
         ]
+
+
+# ===================== Holiays Serializers =================
+
+
+class HolidaysSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    country_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Holidays
+        fields = [
+            "id",
+            "name",
+            "description",
+            "date",
+            "country",
+            "country_name",
+            "user",
+        ]
+
+    def get_country_name(self, obj):
+        return pycountry.countries.get(alpha_2=obj.country.upper()).name

@@ -3,21 +3,20 @@ from django.conf import settings
 import os
 from django.utils import timezone
 
+
 def post_image_path(instance, filename):
     """Generate path for post images"""
-    ext = filename.split('.')[-1]
+    ext = filename.split(".")[-1]
     filename = f"post_{instance.user.id}_{instance.id}.{ext}"
-    return os.path.join('post_images', filename)
+    return os.path.join("post_images", filename)
+
 
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = models.TextField()
     image = models.ImageField(
-        upload_to=post_image_path,
-        null=True,
-        blank=True,
-        default=None
+        upload_to=post_image_path, null=True, blank=True, default=None
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -28,29 +27,25 @@ class Post(models.Model):
     @property
     def image_url(self):
         """Safe URL access that won't raise errors"""
-        if self.image and hasattr(self.image, 'url'):
+        if self.image and hasattr(self.image, "url"):
             try:
                 return self.image.url
-            except ValueError:  
+            except ValueError:
                 return None
         return None
-    
-    
+
+
 # === AutomationProcess model ===
+
 
 class AutomationForm(models.Model):
     FREQUENCY_CHOICES = [
-        ('Daily', 'Daily'),
-        ('Weekly', 'Weekly'),
-        ('Monthly', 'Monthly')
+        ("Daily", "Daily"),
+        ("Weekly", "Weekly"),
+        ("Monthly", "Monthly"),
     ]
-    FRICTION_CHOICES = [
-        ('High', 'High'),
-        ('Medium', 'Medium'),
-        ('Low', 'Low')
-   ]
+    FRICTION_CHOICES = [("High", "High"), ("Medium", "Medium"), ("Low", "Low")]
 
-    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -58,6 +53,20 @@ class AutomationForm(models.Model):
     friction = models.CharField(max_length=20, choices=FRICTION_CHOICES)
     density = models.CharField(max_length=255)
     created_at = models.DateTimeField(default=timezone.now)
-     
+
     def __str__(self):
         return f"{self.title} (by {self.user.email})"
+
+
+# === Holidays Model ===
+
+
+class Holidays(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    date = models.DateField()
+    country = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.name} ({self.country}) on {self.date}"
